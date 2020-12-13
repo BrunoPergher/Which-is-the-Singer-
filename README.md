@@ -5,7 +5,7 @@ The objetive of the game is, figure out which are the singers, singing in the sa
 
 ##Tecnologias
 
--Jquery
--Javasript
--HTML
--CSS
+- Jquery
+- Javasript
+- HTML
+- CSS
