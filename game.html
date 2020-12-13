@@ -1,0 +1,369 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Which the singer?</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="font/material-icons.css"> 
+</head>
+<body>
+
+  <!-- inicio -->
+  <section class="inicio">
+    <h1>Which the Singer?</h1>    
+    <button>Start</button>
+  </section>
+  <!-- inicio -->
+  
+  <!-- flag-1 -->
+  <section class="flag flag-1">  
+    <header>
+      <p>
+        <span class="mticons">star</span> 
+        Corrects: <span class="corrects">0</span>
+      </p>
+      <p>
+        <span class="mticons">alarm</span> 
+        <span class="minutes">00</span>:<span class="tempo">00</span>
+      </p>
+    </header>
+    <div>
+      <h1>which the 3 Singers?</h1>
+      <ul>
+        <li><img class="correct c1" src="img/Singers/baroes.jpg"></li>
+        <li><img class="fail" src="img/Singers/Adele.png"></li>
+        <li><img class="fail" src="img/Singers/justin.jpg"></li>
+        <li><img class="fail" src="img/Singers/katy.jpg"></li>
+        <li><img class="correct c2" src="img/Singers/Gustavolima.jpg"></li>
+        <li><img class="fail" src="img/Singers/shawn.png"></li>
+        <li><img class="fail" src="img/Singers/rihanna.jpg"></li>
+        <li><img class="fail" src="img/Singers/mars.jpg"></li>
+        <li><img class="correct c3" src="img/Singers/teló.jpg"></li>
+      </ul>
+    </div>
+    <footer>
+      <p>
+        <span class="home mticons">home</span>
+        <span class="som01 mticons">volume_up</span>
+        <span class="ajuda mticons">help_outline</span>
+      </p>
+    </footer>
+  </section>
+  <!-- flag-1 -->
+  
+  <!-- flag-2 -->
+  <section class="flag flag-2">  
+    <header>
+      <p>
+        <span class="mticons">star</span> 
+        Corrects: <span class="corrects">0</span>
+      </p>
+      <p>
+        <span class="mticons">alarm</span> 
+        <span class="minutes">00</span>:<span class="time">00</span>
+      </p>
+    </header>
+    <div>
+      <h1>Which the 3 Singers?</h1>
+      <ul>
+        <li><img class="faill" src="img/Singers/baroes.jpg"></li>
+        <li><img class="faill" src="img/Singers/Adele.png"></li>
+        <li><img class="correct c1" src="img/Singers/justin.jpg"></li>
+        <li><img class="faill" src="img/Singers/rihanna.jpg"></li>
+        <li><img class="correct c2" src="img/Singers/mars.jpg"></li>
+        <li><img class="faill" src="img/Singers/shawn.png"></li>
+        <li><img class="correct c3" src="img/Singers/katy.jpg"></li>
+        <li><img class="faill" src="img/Singers/ivete.png"></li>
+        <li><img class="faill" src="img/Singers/teló.jpg"></li>
+      </ul>
+    </div>
+    <footer>
+      <p>
+        <span class="home mticons">home</span>
+        <span class="som02 mticons">volume_up</span>
+        <span class="ajuda mticons">help_outline</span>
+      </p>
+    </footer>
+  </section>
+  <!-- flag-2 -->
+
+  <!-- flag-3 -->
+  <section class="flag-3">
+    <h2>All Corrects: <span class="allcorrects">0</span></h2>
+    <h2>All errors: <span class="allfails">0</span></h2>
+    <p></p>
+    <h2 id="temppo">Time: 00:<span class="temp">00</span></h2>
+    <button>Play Again</button>
+  </section>
+  <!-- flag-3 -->
+ 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <script type="text/javascript">
+    var music = new Audio();
+    var music1 = new Audio();
+    var music2 = new Audio();
+    var music3 = new Audio();
+    var musicerror = new Audio('musica/error2.mp3');
+    var corrects = 0;
+    var errors = 0;
+    var fails = 0;
+    var end = false;
+
+    $("section.inicio button").on("click", function() {
+      
+     
+
+      music1 = new Audio('musica/baroes.mp3');
+      music2 = new Audio('musica/gustavo.mp3');
+      music3 = new Audio('musica/michel.mp3');
+    
+      $("section").hide();
+      $("section.flag-1").show();
+      music1.play();
+      music2.play();
+      music3.play();
+      
+      var timer = setInterval(function() {
+        var tempo = parseInt($("span.tempo").text());
+        var time = parseInt($("span.time").text());
+        tempo++;
+
+        if (tempo < 10) {
+
+          tempo = "0" + tempo;
+          time = "0" + tempo;
+
+        } else if ((tempo >= 60) && (end === false)) {
+          $("span.allcorrects").text(corrects);
+          $("span.allfails").text(errors + fails);
+          $("section").hide();
+          $("section.flag-3").show();
+          document.getElementById("temppo").style.display = "none";
+          $("section.flag-3 p").text("Time finished");
+          
+          music1.pause();
+          music2.pause();
+          music3.pause();
+
+          music = new Audio('musica/game-over.wav');
+          music.play();
+          clearInterval(timer);
+        }
+        $("span.tempo").text(tempo);
+        $("span.time").text(tempo);
+      }, 1000)
+    });
+
+    $("section.flag footer p span.home").on("click",function(){
+      location.reload();
+    })
+
+    $("section.flag-1 footer p span.som01").on("click", function() {
+      var botao = $("span.som01").text();
+
+      if (botao == "volume_up") {
+
+        music1.pause();
+        music2.pause();
+        music3.pause();
+        $("span.som01").text("volume_off");
+      } else {
+
+        $("span.som01").text("volume_up");
+        music1.play();
+        music2.play();
+        music3.play();
+      }
+    });
+    
+
+
+    $("section.flag-2 footer p span.som02").on("click", function() {
+      var botao = $("span.som02").text();
+
+      if (botao == "volume_up") {
+
+        music1.pause();
+        music2.pause();
+        music3.pause();
+        $("span.som02").text("volume_off");
+
+      } else {
+
+        $("span.som02").text("volume_up");
+        music1.play();
+        music2.play();
+        music3.play();
+
+      }
+    });
+
+    $("section.flag-1 footer p span.ajuda").one("click", function() {
+      $(this).css({opacity: 0.7});
+
+      var bandeiras = $(".fail");
+
+
+      for (var i=0; i<3; i++) {
+    
+        var random = Math.floor(Math.random() * bandeiras.length);
+        if (bandeiras[random].style.opacity === "0.7") {
+          i--;
+        } else {
+          bandeiras[random].style.opacity = "0.7";
+        }
+      }
+    });
+
+    $("section.flag-2 footer p span.ajuda").one("click", function() {
+
+      $(this).css({opacity: 0.7});
+
+      var bandeiras = $(".faill");
+
+
+      for (var i=0; i<2; i++) {
+
+        var random = Math.floor(Math.random() * bandeiras.length);
+        if (bandeiras[random].style.opacity === "0.7") {
+          i--;
+        } else {
+          bandeiras[random].style.opacity = "0.7";
+        }
+      }
+    });
+
+    $("section.flag-1 ul img.correct").one("click", function() {
+      $(this).css({opacity: 0.7});
+      corrects++;
+      $("span.corrects").text(corrects);
+      if (this.className === "correct c1") {
+
+        music1.pause();
+        music1 = new Audio('musica/timberlake.mp3');
+
+      } else if (this.className === "correct c2") {
+
+        music2.pause();
+        music2 = new Audio('musica/mars.mp3');
+
+      } else if (this.className === "correct c3") {
+
+        music3.pause();
+        music3 = new Audio('musica/katy.mp3');
+      }
+      
+
+      if (corrects == 3) {
+        $("section.flag-1").hide();
+        $("section.flag-2").show();
+        
+        music1.play();
+        music2.play();
+        music3.play();
+
+      }
+    });
+
+    $("section.flag-2 ul img.correct").one("click", function() {
+
+      $(this).css({opacity: 0.7});
+      corrects++;
+      $("span.corrects").text(corrects);
+
+      if (this.className === "correct c1") {
+        music1.pause();
+       
+      } else if (this.className === "correct c2") {
+        music2.pause();
+     
+      } else if (this.className === "correct c3") {
+        music3.pause();
+      
+      }
+
+      if (corrects == 6) {
+
+        end = true;
+        music = new Audio('musica/correct.mp3');
+
+
+        music.play();
+        $("span.allcorrects").text(corrects);
+        $("span.allfails").text(errors + fails);
+        $("span.temp").text($("span.tempo").text());
+        $("section").hide();
+        $("section.flag-2").hide();
+        $("section.flag-3").show();
+      }
+    });
+
+    $("section.flag-1 ul img.fail").one("click", function() {
+      musicerror.play();
+      if (this.style.opacity !== "0.7") {
+        errors++;
+        $(this).css({opacity: 0.7});
+
+        if (errors > 2) {
+          
+          end = true;
+          music1.pause();
+          music2.pause();
+          music3.pause();
+          music = new Audio('musica/game-over-acarde.wav');
+          music.play();
+
+
+          $("span.allcorrects").text(corrects);
+          $("span.allfails").text(errors + fails);
+          $("span.temp").text($("span.tempo").text());
+          $("section").hide();
+          $("section.flag-3").show();
+        }
+      }
+    });
+
+    $("section.flag-2 ul img.faill").one("click", function() {
+      musicerror.play();
+      
+      if (this.style.opacity !== "0.7") {
+        fails++;
+        $(this).css({opacity: 0.7});
+
+        if (fails > 2) {
+
+          end = true;
+          music1.pause();
+          music2.pause();
+          music3.pause();
+          music = new Audio('musica/game-over.wav');
+          music.play();
+
+
+          $("span.allcorrects").text(corrects);
+          $("span.allfails").text(errors + fails);
+          $("span.temp").text($("span.tempo").text());
+          $("section").hide();
+          $("section.flag-3").show();
+
+        }
+      }
+    });
+
+
+    $("section.flag-3 button").on("click", function() {
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>
