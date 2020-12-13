@@ -3,8 +3,7 @@ developed game for a  class work.
 
 The objetive of the game is, figure out which are the singers, singing in the same time.
 
-##Tecnologias
-
+Tecnologias
 - Jquery
 - Javasript
 - HTML
